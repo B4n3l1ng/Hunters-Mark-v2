@@ -34,5 +34,8 @@ class Game {
 
   update() {
     this.player.move();
+    if (this.player.isShooting) {
+      this.player.shoot();
+    }
   }
 }

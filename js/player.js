@@ -6,6 +6,8 @@ class Player {
     this.top = 370;
     this.left = 65;
     this.directionY = 0;
+    this.isShooting = false;
+    this.shootingSound = new Audio("./assets/audio/Arrow Shot.wav");
 
     this.element = document.createElement("img");
     this.element.src = "./assets/images/player.png";
@@ -31,5 +33,9 @@ class Player {
 
   updatePosition() {
     this.element.style.top = `${this.top}px`;
+  }
+
+  shoot() {
+    this.shootingSound.play();
   }
 }

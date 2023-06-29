@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
             game.player.directionY = -4;
             break;
           case " ":
-            console.log("ROOTIN TOOTIN SHOOTING BANGARANG");
+            game.player.isShooting = true;
         }
       }
     });
@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
             game.player.directionY = 0;
             break;
           case " ":
-            console.log("ROOTIN TOOTIN SHOOTING BANGARANG");
+            game.player.isShooting = false;
         }
       }
     });
