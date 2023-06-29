@@ -1,0 +1,38 @@
+body {
+    padding:0;
+    margin: 0;
+    border-style: border-box;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/* Hover on instructions */
+#instructions {
+    display: none
+}
+
+#game-container, #game-lost, #game-won{
+    display: none;
+}
+
+#game-screen {
+    margin: 0 auto;
+    background: url("../assets/images/Background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#stats {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    margin: 0;
+}
