@@ -7,6 +7,8 @@ class Game {
     this.width = 900;
     this.player = new Player(this.gameScreen);
     this.isGameOver = false;
+    this.backgroundMusic = new Audio("./assets/audio/Background Music.mp3");
+    this.backgroundMusic.volume = 0.1;
     this.animateId;
   }
 
@@ -16,7 +18,7 @@ class Game {
 
     this.startScreen.style.display = "none";
     this.gameContainer.style.display = "block";
-
+    this.backgroundMusic.play();
     this.gameLoop();
   }
 
