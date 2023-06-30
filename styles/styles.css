@@ -22,16 +22,27 @@ body {
     display: none;
 }
 
+#game-container{
+    width:100vw;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #game-screen {
-    margin: 0 auto;
+    padding: 20px, 0px;
+    align-content: center;
+    overflow: hidden;
+    position: relative;
     background: url("../assets/images/Background.png");
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
 }
 
 #stats {
-    display: flex;
+    display: none;
     justify-content: center;
     gap: 2%;
     margin: 0;

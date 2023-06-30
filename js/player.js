@@ -3,8 +3,8 @@ class Player {
     this.gameScreen = gameScreen;
     this.width = 100;
     this.height = 120;
-    this.top = 370;
-    this.left = 65;
+    this.top = 400 - this.height / 2;
+    this.left = 0;
     this.directionY = 0;
     this.isShooting = false;
     this.shootingSound = new Audio("./assets/audio/Arrow Shot.wav");
