@@ -4,6 +4,7 @@ window.addEventListener("load", () => {
   const instructions = document.getElementById("instructions");
   const restartButtons = document.querySelectorAll(".restartBtn");
   let game;
+  let shootOnce = false;
 
   function startGame() {
     game = new Game();
@@ -20,7 +21,10 @@ window.addEventListener("load", () => {
             game.player.directionY = -4;
             break;
           case " ":
-            game.player.isShooting = true;
+            if (!shootOnce) {
+              game.shoot();
+              shootOnce = true;
+            }
         }
       }
     });
@@ -34,7 +38,7 @@ window.addEventListener("load", () => {
             game.player.directionY = 0;
             break;
           case " ":
-            game.player.isShooting = false;
+            shootOnce = false;
         }
       }
     });

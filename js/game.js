@@ -11,6 +11,7 @@ class Game {
     this.width = 900;
     this.player = new Player(this.gameScreen);
     this.obstacles = [];
+    this.projectiles = [];
     this.isGameOver = false;
     this.backgroundMusic = new Audio("./assets/audio/Background Music.mp3");
     this.backgroundMusic.volume = 0.1;
@@ -62,9 +63,12 @@ class Game {
     if (this.lives <= 0) {
       this.isGameOver = true;
     }
-    if (this.player.isShooting) {
-      this.player.shoot();
-    }
+  }
+
+  shoot() {
+    console.log("shooting toothing");
+    this.player.shoot();
+    this.projectiles.push(new Projectile(this.gameScreen, this.player));
   }
 
   endGame() {
