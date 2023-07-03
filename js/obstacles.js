@@ -5,7 +5,6 @@ class Obstacle {
     this.height = 120;
     this.left = 1000 - this.width;
     this.top = Math.floor(Math.random() * (800 - this.height - 10));
-    console.log(this.top);
 
     this.images = [
       "./assets/images/goblin final.png",
@@ -32,6 +31,5 @@ class Obstacle {
 
   updatePosition() {
     this.element.style.left = `${this.left}px`;
-    this.element.style.top = `${this.top}px`;
   }
 }

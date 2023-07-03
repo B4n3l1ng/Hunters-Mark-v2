@@ -6,6 +6,7 @@ class Game {
     this.endScreenWin = document.getElementById("game-won");
     this.endScreenLose = document.getElementById("game-lost");
     this.stats = document.getElementById("stats");
+    this.scoreHTML = document.getElementById("score");
     this.gameScreen.style.border = "5px solid black";
     this.height = 800;
     this.width = 900;
@@ -46,27 +47,79 @@ class Game {
   update() {
     this.player.move();
     const obstaclesToKeep = [];
-    this.obstacles.forEach((obstacle) => {
+    const projectilesToKeep = this.projectiles.map((element) => element);
+
+    /* this.obstacles.forEach((obstacle) => {
       obstacle.move();
       if (this.player.didCollide(obstacle)) {
+        console.log("Orc and player collision");
         obstacle.element.remove();
         this.lives--;
         document.getElementById("lives").innerText = this.lives;
       } else if (obstacle.left < 0 - obstacle.width) {
-        this.score--;
+        console.log("Orc got to the end");
+        this.lives--;
         document.getElementById("lives").innerText = this.lives;
       } else {
         obstaclesToKeep.push(obstacle);
       }
+      this.projectiles.forEach((projectile) => {
+        projectile.move();
+        if (projectile.didCollide(obstacle)) {
+          console.log("Orc and arrow collision");
+          this.score++;
+          projectile.element.remove();
+          obstacle.element.remove();
+          this.scoreHTML.innerText = this.score;
+        } else if (projectile.left > this.width) {
+          console.log("Arrow left screen");
+          projectile.element.remove();
+        } else {
+          projectilesToKeep.push(projectile);
+        }
+      });
     });
-    this.obstacles = obstaclesToKeep;
+    this.projectiles = projectilesToKeep;
+    this.obstacles = obstaclesToKeep; */
+    for (let i = 0; i < this.obstacles.length; i += 1) {
+      let obstacle = this.obstacles[i];
+      obstacle.move();
+      if (this.player.didCollide(obstacle)) {
+        obstacle.element.remove();
+        this.lives -= 1;
+        document.getElementById("lives").innerText = this.lives;
+        this.obstacles.splice(i, 1);
+        i--;
+      } else if (obstacle.left < 0 - obstacle.width) {
+        obstacle.element.remove();
+        this.lives -= 1;
+        document.getElementById("lives").innerText = this.lives;
+        this.obstacles.splice(i, 1);
+        i--;
+      }
+      this.projectiles.forEach((projectile, index) => {
+        projectile.move();
+        if (projectile.didCollide(obstacle)) {
+          obstacle.element.remove();
+          projectile.element.remove();
+          this.score += 1;
+          this.scoreHTML.innerText = this.score;
+          projectilesToKeep.splice(index, 1);
+          this.obstacles.splice(i, 1);
+          i--;
+        } else if (projectile.left >= this.width) {
+          projectile.element.remove();
+          projectilesToKeep.splice(index, 1);
+        }
+      });
+      this.projectiles = projectilesToKeep;
+    }
     if (this.lives <= 0) {
       this.isGameOver = true;
     }
   }
 
   shoot() {
-    console.log("shooting toothing");
     this.player.shoot();
     this.projectiles.push(new Projectile(this.gameScreen, this.player));
   }
