@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
     game.start();
     document.addEventListener("keydown", (event) => {
       const key = event.key;
-      const possibleKeys = ["ArrowUp", "ArrowDown", " "];
+      const possibleKeys = ["ArrowUp", "ArrowDown", " ", "v"];
       if (possibleKeys.includes(key)) {
         switch (key) {
           case "ArrowDown":
@@ -21,9 +21,18 @@ window.addEventListener("load", () => {
             game.player.directionY = -4;
             break;
           case " ":
-            if (!shootOnce) {
-              game.shoot();
-              shootOnce = true;
+            if (!game.isGameOver) {
+              if (!shootOnce) {
+                game.shoot();
+                shootOnce = true;
+              }
+            }
+            break;
+          case "v":
+            if (!game.isGameOver) {
+              if (game.artyUses !== 0) {
+                game.artyRun();
+              }
             }
         }
       }

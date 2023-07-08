@@ -1,5 +1,5 @@
 class Obstacle {
-  constructor(gameScreen) {
+  constructor(gameScreen, speed) {
     this.gameScreen = gameScreen;
     this.width = 100;
     this.height = 120;
@@ -21,15 +21,20 @@ class Obstacle {
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.gameScreen.appendChild(this.element);
+    this.speed = speed;
   }
 
   move() {
-    this.left -= 3;
+    this.left -= this.speed;
 
     this.updatePosition();
   }
 
   updatePosition() {
     this.element.style.left = `${this.left}px`;
+  }
+
+  setSpeed(speed) {
+    this.speed = speed;
   }
 }

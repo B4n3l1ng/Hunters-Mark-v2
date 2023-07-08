@@ -10,8 +10,10 @@ class Game {
     this.gameScreen.style.border = "5px solid black";
     this.height = 800;
     this.width = 900;
+    this.gameSpeed = 3;
+    this.obstacleInterval = 150;
     this.player = new Player(this.gameScreen);
-    this.obstacles = [];
+    this.obstacles = [new Obstacle(this.gameScreen, this.gameSpeed)];
     this.projectiles = [];
     this.isGameOver = false;
     this.backgroundMusic = new Audio("./assets/audio/Background Music.mp3");
@@ -19,12 +21,31 @@ class Game {
     this.animateId;
     this.lives = 3;
     this.score = 0;
+    this.artyUses = 1;
+    this.artyRunning = false;
+    this.artyBlock = document.createElement("div");
+    this.artyBlock.style.position = "absolute";
+    this.artyBlock.style.border = "1px solid red";
+    this.artyBlock.width = 100;
+    this.artyBlock.style.width = `${this.artyBlock.width}px`;
+    this.artyBlock.style.height = "800px";
+    this.artyBlock.style.top = `0px`;
+    this.artyBlock.left = 0;
+    this.artyBlock.style.left = `${this.artyBlock.left}px`;
+    this.artyBlock.style.display = "none";
+
+    for (let i = 0; i < 8; i++) {
+      new Arty(this.artyBlock, 100 * i);
+    }
+    this.gameScreen.appendChild(this.artyBlock);
+
+    this.dyingSound = new Audio("./assets/audio/Dying.wav");
+    this.dyingSound.volume = 0.5;
   }
 
   start() {
     this.gameScreen.style.width = `${this.width}px`;
     this.gameScreen.style.height = `${this.height}px`;
-
     this.startScreen.style.display = "none";
     this.stats.style.display = "flex";
     this.gameScreen.style.display = "block";
@@ -34,10 +55,11 @@ class Game {
 
   gameLoop() {
     this.update();
-    if (this.animateId % 150 === 0) {
-      this.obstacles.push(new Obstacle(this.gameScreen));
+    if (this.animateId % this.obstacleInterval === 0) {
+      this.obstacles.push(new Obstacle(this.gameScreen, this.gameSpeed));
     }
-    if (this.isGameOver) {
+    if (this.lives === 0) {
+      this.isGameOver = true;
       this.endGame();
     } else {
       this.animateId = requestAnimationFrame(() => this.gameLoop());
@@ -46,41 +68,16 @@ class Game {
 
   update() {
     this.player.move();
-    const obstaclesToKeep = [];
-    const projectilesToKeep = this.projectiles.map((element) => element);
-
-    /* this.obstacles.forEach((obstacle) => {
-      obstacle.move();
-      if (this.player.didCollide(obstacle)) {
-        console.log("Orc and player collision");
-        obstacle.element.remove();
-        this.lives--;
-        document.getElementById("lives").innerText = this.lives;
-      } else if (obstacle.left < 0 - obstacle.width) {
-        console.log("Orc got to the end");
-        this.lives--;
-        document.getElementById("lives").innerText = this.lives;
-      } else {
-        obstaclesToKeep.push(obstacle);
+    if (this.artyRunning) {
+      this.artyBlock.left += 3;
+      this.artyBlock.style.left = `${this.artyBlock.left}px`;
+      if (this.artyBlock.left + this.artyBlock.width >= this.width) {
+        this.artyBlock.remove();
+        this.artyRunning = false;
       }
-      this.projectiles.forEach((projectile) => {
-        projectile.move();
-        if (projectile.didCollide(obstacle)) {
-          console.log("Orc and arrow collision");
-          this.score++;
-          projectile.element.remove();
-          obstacle.element.remove();
-          this.scoreHTML.innerText = this.score;
-        } else if (projectile.left > this.width) {
-          console.log("Arrow left screen");
-          projectile.element.remove();
-        } else {
-          projectilesToKeep.push(projectile);
-        }
-      });
-    });
-    this.projectiles = projectilesToKeep;
-    this.obstacles = obstaclesToKeep; */
+    }
+    const projectilesToKeep = this.projectiles.map((element) => element);
+    this.projectiles.forEach((projectile) => projectile.move());
     for (let i = 0; i < this.obstacles.length; i += 1) {
       let obstacle = this.obstacles[i];
       obstacle.move();
@@ -90,22 +87,39 @@ class Game {
         document.getElementById("lives").innerText = this.lives;
         this.obstacles.splice(i, 1);
         i--;
-      } else if (obstacle.left < 0 - obstacle.width) {
+      } else if (obstacle.left < 0 /* - obstacle.width */) {
         obstacle.element.remove();
         this.lives -= 1;
         document.getElementById("lives").innerText = this.lives;
         this.obstacles.splice(i, 1);
         i--;
+      } else if (this.artyRunning) {
+        let artyRect = this.artyBlock.getBoundingClientRect();
+        let obstacleRect = obstacle.element.getBoundingClientRect();
+        if (
+          artyRect.left < obstacleRect.right &&
+          artyRect.right > obstacleRect.left
+        ) {
+          obstacle.element.remove();
+          this.score += 1;
+          document.getElementById("score").innerText = this.score;
+          this.obstacles.splice(i, 1);
+          i--;
+        }
       }
       this.projectiles.forEach((projectile, index) => {
-        projectile.move();
         if (projectile.didCollide(obstacle)) {
+          this.dyingSound.currentTime = 0;
+          this.dyingSound.play();
           obstacle.element.remove();
           projectile.element.remove();
           this.score += 1;
           this.scoreHTML.innerText = this.score;
           projectilesToKeep.splice(index, 1);
           this.obstacles.splice(i, 1);
+          if (this.score % 5 === 0 && this.score !== 0) {
+            this.increaseLevel();
+          }
           i--;
         } else if (projectile.left >= this.width) {
           projectile.element.remove();
@@ -119,9 +133,25 @@ class Game {
     }
   }
 
+  increaseLevel() {
+    this.gameSpeed += 1;
+    this.obstacleInterval -= 20;
+    this.obstacles.forEach((obstacle) => {
+      obstacle.setSpeed(this.gameSpeed);
+    });
+  }
+
   shoot() {
     this.player.shoot();
     this.projectiles.push(new Projectile(this.gameScreen, this.player));
+  }
+
+  artyRun() {
+    let artyHowl = new Audio("./assets/audio/howl.wav");
+    artyHowl.volume = 0.3;
+    artyHowl.play();
+    this.artyBlock.style.display = "block";
+    this.artyRunning = true;
   }
 
   endGame() {
