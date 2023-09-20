@@ -41,6 +41,10 @@ class Game {
 
     this.dyingSound = new Audio("./assets/audio/Dying.wav");
     this.dyingSound.volume = 0.5;
+    this.gameFailMusic = new Audio("./assets/audio/fail sound.wav");
+    this.gameFailMusic.volume = 0.5;
+    this.successMusic = new Audio("./assets/audio/Game Over Screen.mp3");
+    this.successMusic.volume = 0.5;
   }
 
   start() {
@@ -161,11 +165,15 @@ class Game {
       this.gameScreen.style.display = "none";
       this.endScreenWin.style.display = "block";
       document.getElementById("scoreWon").innerText = this.score;
+      this.backgroundMusic.pause();
+      this.successMusic.play();
     } else {
       this.stats.style.display = "none";
       this.gameScreen.style.display = "none";
       this.endScreenLose.style.display = "block";
       document.getElementById("scoreLost").innerText = this.score;
+      this.backgroundMusic.pause();
+      this.gameFailMusic.play();
     }
   }
 }
