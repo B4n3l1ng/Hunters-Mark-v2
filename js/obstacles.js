@@ -7,9 +7,9 @@ class Obstacle {
     this.top = Math.floor(Math.random() * (800 - this.height - 10));
 
     this.images = [
-      "./assets/images/goblin final.png",
-      "./assets/images/ogre final.png",
-      "./assets/images/orc final.png",
+      "./assets/images/Goblin Running.gif",
+      "./assets/images/Ogre Running.gif",
+      "./assets/images/Orc Running.gif",
     ];
     this.element = document.createElement("img");
     this.index = Math.floor(Math.random() * (this.images.length - 1 + 1));

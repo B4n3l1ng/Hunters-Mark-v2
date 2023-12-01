@@ -5,6 +5,8 @@ window.addEventListener("load", () => {
   const restartButtons = document.querySelectorAll(".restartBtn");
   let game;
   let shootOnce = false;
+  const playerMoving = "./assets/images/Player Running.gif";
+  const playerIdle = "./assets/images/Player Idle.gif";
 
   function startGame() {
     game = new Game();
@@ -16,9 +18,19 @@ window.addEventListener("load", () => {
         switch (key) {
           case "ArrowDown":
             game.player.directionY = 4;
+            if (
+              game.player.element.src !== "./assets/images/Player Running.gif"
+            ) {
+              game.player.element.src = "./assets/images/Player Running.gif";
+            }
             break;
           case "ArrowUp":
             game.player.directionY = -4;
+            if (
+              game.player.element.src !== "./assets/images/Player Running.gif"
+            ) {
+              game.player.element.src = "./assets/images/Player Running.gif";
+            }
             break;
           case " ":
             if (!game.isGameOver) {
@@ -44,6 +56,9 @@ window.addEventListener("load", () => {
         switch (key) {
           case "ArrowDown":
           case "ArrowUp":
+            if (game.player.element.src !== "./assets/images/Player Idle.gif") {
+              game.player.element.src = "./assets/images/Player Idle.gif";
+            }
             game.player.directionY = 0;
             break;
           case " ":

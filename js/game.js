@@ -25,8 +25,7 @@ class Game {
     this.artyRunning = false;
     this.artyBlock = document.createElement("div");
     this.artyBlock.style.position = "absolute";
-    this.artyBlock.style.border = "1px solid red";
-    this.artyBlock.width = 100;
+    this.artyBlock.width = 150;
     this.artyBlock.style.width = `${this.artyBlock.width}px`;
     this.artyBlock.style.height = "800px";
     this.artyBlock.style.top = `0px`;

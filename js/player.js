@@ -10,13 +10,12 @@ class Player {
     this.shootingSound = new Audio("./assets/audio/Arrow Shot.wav");
 
     this.element = document.createElement("img");
-    this.element.src = "./assets/images/player.png";
+    this.element.src = "./assets/images/Player Idle.gif";
     this.element.style.position = "absolute";
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.top = `${this.top}px`;
     this.element.style.left = `${this.left}px`;
-
     this.gameScreen.appendChild(this.element);
   }
 
