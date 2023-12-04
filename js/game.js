@@ -58,9 +58,9 @@ class Game {
 
   gameLoop() {
     this.update();
-    if (this.animateId % this.obstacleInterval === 0) {
+    /* if (this.animateId % this.obstacleInterval === 0) {
       this.obstacles.push(new Obstacle(this.gameScreen, this.gameSpeed));
-    }
+    } */
     if (this.lives === 0) {
       this.isGameOver = true;
       this.endGame();

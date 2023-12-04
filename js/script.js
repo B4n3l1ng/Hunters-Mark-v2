@@ -18,19 +18,11 @@ window.addEventListener("load", () => {
         switch (key) {
           case "ArrowDown":
             game.player.directionY = 4;
-            if (
-              game.player.element.src !== "./assets/images/Player Running.gif"
-            ) {
-              game.player.element.src = "./assets/images/Player Running.gif";
-            }
+            game.player.element.src = "./assets/images/Player Running.gif";
             break;
           case "ArrowUp":
             game.player.directionY = -4;
-            if (
-              game.player.element.src !== "./assets/images/Player Running.gif"
-            ) {
-              game.player.element.src = "./assets/images/Player Running.gif";
-            }
+            game.player.element.src = "./assets/images/Player Running.gif";
             break;
           case " ":
             if (!game.isGameOver) {
@@ -56,10 +48,8 @@ window.addEventListener("load", () => {
         switch (key) {
           case "ArrowDown":
           case "ArrowUp":
-            if (game.player.element.src !== "./assets/images/Player Idle.gif") {
-              game.player.element.src = "./assets/images/Player Idle.gif";
-            }
             game.player.directionY = 0;
+            game.player.element.src = "./assets/images/Player Idle.gif";
             break;
           case " ":
             shootOnce = false;
