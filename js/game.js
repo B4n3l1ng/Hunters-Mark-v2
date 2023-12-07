@@ -1,5 +1,5 @@
 class Game {
-  constructor() {
+  constructor(isMuted) {
     this.startScreen = document.getElementById("game-intro");
     this.gameContainer = document.getElementById("game-container");
     this.gameScreen = document.getElementById("game-screen");
@@ -8,6 +8,13 @@ class Game {
     this.stats = document.getElementById("stats");
     this.scoreHTML = document.getElementById("score");
     this.gameScreen.style.border = "5px solid black";
+    this.gameScreen.style.display = "none";
+    this.name = document.getElementById("nameInput").value;
+    console.log(this.name);
+    this.highScores = JSON.parse(localStorage.getItem("highScores"));
+    console.log(this.highScores);
+    this.isMuted = isMuted;
+    console.log("isMuted in class", isMuted);
     this.height = 800;
     this.width = 900;
     this.gameSpeed = 3;
@@ -52,15 +59,17 @@ class Game {
     this.startScreen.style.display = "none";
     this.stats.style.display = "flex";
     this.gameScreen.style.display = "block";
-    this.backgroundMusic.play();
+    if (!this.isMuted) {
+      this.backgroundMusic.play();
+    }
     this.gameLoop();
   }
 
   gameLoop() {
     this.update();
-    /* if (this.animateId % this.obstacleInterval === 0) {
+    if (this.animateId % this.obstacleInterval === 0) {
       this.obstacles.push(new Obstacle(this.gameScreen, this.gameSpeed));
-    } */
+    }
     if (this.lives === 0) {
       this.isGameOver = true;
       this.endGame();
@@ -113,7 +122,9 @@ class Game {
       this.projectiles.forEach((projectile, index) => {
         if (projectile.didCollide(obstacle)) {
           this.dyingSound.currentTime = 0;
-          this.dyingSound.play();
+          if (!this.isMuted) {
+            this.dyingSound.play();
+          }
           obstacle.element.remove();
           projectile.element.remove();
           this.score += 1;
@@ -145,34 +156,69 @@ class Game {
   }
 
   shoot() {
-    this.player.shoot();
+    if (!this.isMuted) {
+      this.player.shoot();
+    }
     this.projectiles.push(new Projectile(this.gameScreen, this.player));
   }
 
   artyRun() {
     let artyHowl = new Audio("./assets/audio/howl.wav");
     artyHowl.volume = 0.3;
-    artyHowl.play();
+    if (!this.isMuted) {
+      artyHowl.play();
+    }
     this.artyBlock.style.display = "block";
     this.artyRunning = true;
   }
 
   endGame() {
     cancelAnimationFrame(this.animateId);
-    if (this.score >= 3) {
+    this.handleHighScore();
+    this.highScores = JSON.parse(localStorage.getItem("highScores"));
+    const scoreList = document.createElement("ol");
+    this.highScores.forEach((score) => {
+      const li = document.createElement("li");
+      li.innerText = `${score.score} by ${score.name}`;
+      scoreList.appendChild(li);
+    });
+    scoreList.classList.add("list");
+    if (this.score >= 20) {
       this.stats.style.display = "none";
       this.gameScreen.style.display = "none";
       this.endScreenWin.style.display = "block";
       document.getElementById("scoreWon").innerText = this.score;
+      document.getElementById("highScores").appendChild(scoreList);
       this.backgroundMusic.pause();
-      this.successMusic.play();
+      if (!this.isMuted) {
+        this.successMusic.play();
+      }
     } else {
       this.stats.style.display = "none";
       this.gameScreen.style.display = "none";
       this.endScreenLose.style.display = "block";
-      document.getElementById("scoreLost").innerText = this.score;
+      document.getElementById("highScores").appendChild(scoreList);
+      this.endScreenLose.appendChild(scoreList);
       this.backgroundMusic.pause();
-      this.gameFailMusic.play();
+      if (!this.isMuted) {
+        this.gameFailMusic.play();
+      }
+    }
+  }
+
+  handleHighScore() {
+    if (this.highScores) {
+      const newScores = [
+        ...this.highScores,
+        { name: this.name, score: this.score },
+      ];
+      newScores.sort((a, b) => b.score - a.score);
+      const newLocalScores = newScores.slice(0, 11);
+      localStorage.setItem("highScores", JSON.stringify(newLocalScores));
+      this.highScores = JSON.parse(localStorage.getItem("highScores"));
+    } else {
+      const newScore = [{ name: this.name, score: this.score }];
+      localStorage.setItem("highScores", JSON.stringify(newScore));
     }
   }
 }

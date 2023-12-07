@@ -1,69 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/images/logo.png"
+      type="image/x-icon"
+    />
+    <title>Hunter's Mark</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./styles/styles.css" />
-  <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon" />
-  <title>Hunter's Mark</title>
-</head>
+  <body>
+    <div id="game-intro" class="box">
+      <h1>Hunter's Mark</h1>
+      <img
+        src="./assets/images/logo.png"
+        alt="Hunter's Mark logo"
+        class="logo"
+      />
+      <div class="intro">
+        <h2>Welcome to Hunter's Mark</h2>
+        <div id="intro">
+          <p>
+            Your village is under attack by a horde of orcs, goblins and ogres!
+            <br />Take up arms with your trusty bow against the onslaught of
+            enemies and save your village!
+          </p>
+        </div>
+      </div>
+      <div id="buttons">
+        <input type="text" placeholder="Type your name here" id="nameInput" />
+        <button id="startBtn">Start Game!</button>
+        <div class="instructionsDiv">
+          <button>Instructions</button>
+          <div class="instructions box">
+            Use the up and down keys on your keyboard to move our ranger hero,
+            Cris.<br />
+            Pressing the space bar will cause her to shoot an arrow in front of
+            her. If an arrow hits an orc, the orc will die.<br />
+            Don't let them kill you, or reach the village behind you, for they
+            will kill everything in their path!<br />
+            Press the V key to summon your companions if you're feeling
+            overwhelmed, but remember, you can only do it once per try!<br />
+            If you manage to kill all 20 of your enemies, you save the village!
+          </div>
+        </div>
 
-<body>
-  <div id="game-intro">
-    <h1>Hunter's Mark</h1>
-    <img src="./assets/images/logo.png" alt="Hunter's Mark logo" />
-    <div class="instructions">
-      <h2>Welcome to Hunter's Mark</h2>
-      <div id="intro">
-        <p>
-          Your village is under attack by a horde of orcs, goblins and ogres!
-          <br />Take up arms with your trusty bow against the onslaught of
-          enemies and save your village!
-        </p>
+        <button id="muteBtn">Music: <span class="muteText">on</span></button>
       </div>
     </div>
-    <div id="instructions">
-      Use the up and down keys on your keyboard to move our ranger hero,
-      Cris.<br />
-      Pressing the space bar will cause her to shoot an arrow in front of her.
-      If an arrow hits an orc, the orc will die.<br />
-      Don't let them kill you, or reach the village behind you, for they will
-      kill everything in their path!<br />
-      Press the V key to summon your companions if you're feeling overwhelmed,
-      but remember, you can only do it once per try!<br />
-      If you manage to kill all 50 of your enemies, you save the village!
+    <div id="game-container">
+      <div id="stats" class="box">
+        <p>Score: <span id="score">0</span></p>
+        <p>Lives: <span id="lives">3</span></p>
+      </div>
+      <div id="game-screen"></div>
     </div>
-    <button id="startBtn">Start Game!</button>
-    <button id="instructionsBtn">Instructions</button>
-    <button id="muteBtn">Mute: <span class="muteText">off</span></button>
-  </div>
-  <div id="game-container">
-    <div id="stats">
-      <p>Score: <span id="score">0</span></p>
-      <p>Lives: <span id="lives">3</span></p>
+    <div id="game-lost" class="box">
+      <h1>Game Over</h1>
+      <p>Better luck next time</p>
+      <p>Final score: <span id="scoreLost"></span></p>
+      <button class="restartBtn">Try Again!</button>
+      <h3>High Scores</h3>
     </div>
-    <div id="game-screen"></div>
-  </div>
-  <div id="game-lost">
-    <h1>Game Over</h1>
-    <p>Better luck next time</p>
-    <p>Final score: <span id="scoreLost"></span></p>
-    <button class="restartBtn">Try Again!</button>
-  </div>
-  <div id="game-won">
-    <h1>You saved the village!</h1>
-    <p>You're a hero!</p>
-    <p>Final score: <span id="scoreWon"></span></p>
-    <button class="restartBtn">Try Again!</button>
-  </div>
-  <script type="text/javascript" src="./js/player.js"></script>
-  <script type="text/javascript" src="./js/projectile.js"></script>
-  <script type="text/javascript" src="./js/obstacles.js"></script>
-  <script type="text/javascript" src="./js/arty.js"></script>
-  <script type="text/javascript" src="./js/game.js"></script>
-  <script type="text/javascript" src="./js/script.js"></script>
-</body>
-
+    <div id="game-won" class="box">
+      <h1>You saved the village!</h1>
+      <p>You're a hero!</p>
+      <p>Final score: <span id="scoreWon"></span></p>
+      <button class="restartBtn">Try Again!</button>
+      <h3>High Scores</h3>
+      <div id="highScores"></div>
+    </div>
+    <script type="text/javascript" src="./js/player.js"></script>
+    <script type="text/javascript" src="./js/projectile.js"></script>
+    <script type="text/javascript" src="./js/obstacles.js"></script>
+    <script type="text/javascript" src="./js/arty.js"></script>
+    <script type="text/javascript" src="./js/game.js"></script>
+    <script type="text/javascript" src="./js/script.js"></script>
+  </body>
 </html>

@@ -3,13 +3,15 @@ window.addEventListener("load", () => {
   const instructionsButton = document.getElementById("instructionsBtn");
   const instructions = document.getElementById("instructions");
   const restartButtons = document.querySelectorAll(".restartBtn");
+  const muteBtn = document.querySelector("#muteBtn");
+  const muteText = document.querySelector(".muteText");
+  let isMuted = false;
   let game;
   let shootOnce = false;
-  const playerMoving = "./assets/images/Player Running.gif";
-  const playerIdle = "./assets/images/Player Idle.gif";
 
   function startGame() {
-    game = new Game();
+    console.log(isMuted);
+    game = new Game(isMuted);
     game.start();
     document.addEventListener("keydown", (event) => {
       const key = event.key;
@@ -58,16 +60,6 @@ window.addEventListener("load", () => {
     });
   }
 
-  function showInstructions() {
-    instructions.style.display === "block"
-      ? (instructions.style.display = "none")
-      : (instructions.style.display = "block");
-  }
-
-  instructionsButton.addEventListener("click", () => {
-    showInstructions();
-  });
-
   startButton.addEventListener("click", () => {
     startGame();
   });
@@ -75,5 +67,13 @@ window.addEventListener("load", () => {
     button.addEventListener("click", () => {
       location.reload();
     });
+  });
+  muteBtn.addEventListener("click", () => {
+    isMuted = !isMuted;
+    if (isMuted) {
+      muteText.innerText = "off";
+    } else if (!isMuted) {
+      muteText.innerText = "on";
+    }
   });
 });

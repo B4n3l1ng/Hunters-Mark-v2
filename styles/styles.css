@@ -1,49 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Nova+Square&display=swap");
 body {
-    padding:0;
-    margin: 0;
-    border-style: border-box;
-    text-align: center;
+  padding: 0;
+  margin: 0;
+  border-style: border-box;
+  text-align: center;
+  font-family: "Nova Square", sans-serif;
+  background-image: url("../assets/images/village.jpg");
+  background-position: cover;
+  background-size: 100%;
+  text-align: center;
+  color: silver;
+  min-height: 99vh;
+  overflow: hidden;
 }
 
-
-
-
-
-
-
-
-
-/* Hover on instructions */
-#instructions {
-    display: none
+.logo {
+  width: 300px;
 }
 
-#game-container, #game-lost, #game-won{
-    display: none;
+.box {
+  border: 10px solid silver;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.instructions {
+  display: none;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  background-color: black;
+  top: 45%;
+  left: 23.43%;
+  padding: 1em;
+  width: 50vw;
 }
 
-#game-container{
-    width:100vw;
-    padding: 20px 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.instructionsDiv:hover .instructions {
+  display: block;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+#game-intro {
+  width: 50vw;
+  margin: 1em auto;
+  padding: 1em;
+}
+
+#game-container,
+#game-lost,
+#game-won {
+  display: none;
+}
+
+#game-container {
+  width: 100vw;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #game-screen {
-    padding: 20px, 0px;
-    align-content: center;
-    overflow: hidden;
-    position: relative;
-    background: url("../assets/images/Background.png");
-    background-position: center;
-    background-size: cover;
+  padding: 20px, 0px;
+  align-content: center;
+  overflow: hidden;
+  position: relative;
+  background: url("../assets/images/Background.png");
+  background-position: center;
+  background-size: cover;
 }
 
 #stats {
-    display: none;
-    justify-content: center;
-    gap: 2%;
-    margin: 0;
+  display: none;
+  justify-content: center;
+  gap: 2%;
+  margin: 0;
+}
+
+button {
+  font-family: "Nova Square", sans-serif;
+  width: 20vw;
+  font-size: 16px;
+  background-color: silver;
+  color: darkgreen;
+  padding: 20px 40px;
+  border: 3px solid darkgreen;
+  box-shadow: 0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: darkgreen;
+  color: silver;
+  font-weight: 800;
+  border-color: silver;
+}
+
+#game-lost {
+  width: 50vw;
+  margin: auto;
+  height: 50vh;
+  padding: 5em 1em;
+}
+
+#game-won {
+  width: 50vw;
+  margin: auto;
+  padding: 5em 1em;
+}
+
+.list {
+  margin: 0 auto;
+  text-align: center;
+  width: 30%;
 }
