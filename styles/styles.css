@@ -123,3 +123,16 @@ button:hover {
   text-align: center;
   width: 30%;
 }
+
+input {
+  width: 15vw;
+  font-size: 16px;
+  background-color: silver;
+  color: darkgreen;
+  padding: 20px 40px;
+  border: 3px solid darkgreen;
+  box-shadow: 0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
