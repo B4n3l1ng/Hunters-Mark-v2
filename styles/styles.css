@@ -124,7 +124,7 @@ button:hover {
   width: 30%;
 }
 
-input {
+input[type="text"] {
   width: 15vw;
   font-size: 16px;
   background-color: silver;
@@ -135,4 +135,12 @@ input {
   border-radius: 8px;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder {
+  text-align: center;
 }

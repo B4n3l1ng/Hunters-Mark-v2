@@ -1,5 +1,5 @@
 class Game {
-  constructor(isMuted) {
+  constructor(isMuted, volume) {
     this.startScreen = document.getElementById("game-intro");
     this.gameContainer = document.getElementById("game-container");
     this.gameScreen = document.getElementById("game-screen");
@@ -7,6 +7,7 @@ class Game {
     this.endScreenLose = document.getElementById("game-lost");
     this.stats = document.getElementById("stats");
     this.scoreHTML = document.getElementById("score");
+    this.volume = volume;
     this.gameScreen.style.border = "5px solid black";
     this.gameScreen.style.display = "none";
     this.name = document.getElementById("nameInput").value;
@@ -24,7 +25,7 @@ class Game {
     this.projectiles = [];
     this.isGameOver = false;
     this.backgroundMusic = new Audio("./assets/audio/Background Music.mp3");
-    this.backgroundMusic.volume = 0.1;
+    this.backgroundMusic.volume = volume;
     this.animateId;
     this.lives = 3;
     this.score = 0;
@@ -46,11 +47,11 @@ class Game {
     this.gameScreen.appendChild(this.artyBlock);
 
     this.dyingSound = new Audio("./assets/audio/Dying.wav");
-    this.dyingSound.volume = 0.5;
+    this.dyingSound.volume = volume;
     this.gameFailMusic = new Audio("./assets/audio/fail sound.wav");
-    this.gameFailMusic.volume = 0.5;
+    this.gameFailMusic.volume = volume;
     this.successMusic = new Audio("./assets/audio/Game Over Screen.mp3");
-    this.successMusic.volume = 0.5;
+    this.successMusic.volume = volume;
   }
 
   start() {

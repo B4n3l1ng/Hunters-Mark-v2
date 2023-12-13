@@ -1,17 +1,16 @@
 window.addEventListener("load", () => {
   const startButton = document.getElementById("startBtn");
-  const instructionsButton = document.getElementById("instructionsBtn");
-  const instructions = document.getElementById("instructions");
   const restartButtons = document.querySelectorAll(".restartBtn");
   const muteBtn = document.querySelector("#muteBtn");
   const muteText = document.querySelector(".muteText");
+  const volumeSlide = document.querySelector("#volumeControl");
   let isMuted = false;
   let game;
   let shootOnce = false;
 
   function startGame() {
-    console.log(isMuted);
-    game = new Game(isMuted);
+    let volume = volumeSlide.value / 100;
+    game = new Game(isMuted, volume);
     game.start();
     document.addEventListener("keydown", (event) => {
       const key = event.key;
