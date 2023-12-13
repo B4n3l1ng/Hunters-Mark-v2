@@ -99,7 +99,7 @@ class Game {
         document.getElementById("lives").innerText = this.lives;
         this.obstacles.splice(i, 1);
         i--;
-      } else if (obstacle.left < 0 /* - obstacle.width */) {
+      } else if (obstacle.left < 0) {
         obstacle.element.remove();
         this.lives -= 1;
         document.getElementById("lives").innerText = this.lives;
@@ -119,7 +119,8 @@ class Game {
           i--;
         }
       }
-      this.projectiles.forEach((projectile, index) => {
+      for (let j = 0; j < this.projectiles.length; j += 1) {
+        let projectile = this.projectiles[j];
         if (projectile.didCollide(obstacle)) {
           this.dyingSound.currentTime = 0;
           if (!this.isMuted) {
@@ -129,18 +130,19 @@ class Game {
           projectile.element.remove();
           this.score += 1;
           this.scoreHTML.innerText = this.score;
-          projectilesToKeep.splice(index, 1);
           this.obstacles.splice(i, 1);
+          this.projectiles.splice(j, 1);
           if (this.score % 5 === 0 && this.score !== 0) {
             this.increaseLevel();
           }
           i--;
+          j--;
         } else if (projectile.left >= this.width) {
           projectile.element.remove();
-          projectilesToKeep.splice(index, 1);
+          this.projectiles.splice(j, 1);
+          j--;
         }
-      });
-      this.projectiles = projectilesToKeep;
+      }
     }
     if (this.lives <= 0) {
       this.isGameOver = true;
