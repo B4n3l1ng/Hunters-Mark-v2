@@ -1,11 +1,14 @@
 window.addEventListener("load", () => {
-  const startButton = document.getElementById("startBtn");
   const restartButtons = document.querySelectorAll(".restartBtn");
   const muteBtn = document.querySelector("#muteBtn");
   const muteText = document.querySelector(".muteText");
   const volumeSlide = document.querySelector("#volumeControl");
   const volumeSlideGameScreen = document.getElementById("volumeControlGame");
   const nameForm = document.getElementById("nameForm");
+  const volumeSettings = JSON.parse(localStorage.getItem("volumeLevel"));
+  if (volumeSettings) {
+    volumeSlide.value = volumeSettings * 100;
+  }
   let isMuted = false;
   let game;
   let shootOnce = false;
@@ -13,6 +16,7 @@ window.addEventListener("load", () => {
   function startGame() {
     let volume = volumeSlide.value / 100;
     volumeSlideGameScreen.value = volumeSlide.value;
+    localStorage.setItem("volumeLevel", JSON.stringify(volume));
     game = new Game(isMuted, volume);
     game.start();
     document.addEventListener("keydown", (event) => {
@@ -62,9 +66,6 @@ window.addEventListener("load", () => {
     });
   }
 
-  /* startButton.addEventListener("click", () => {
-    startGame();
-  }); */
   restartButtons.forEach((button) => {
     button.addEventListener("click", () => {
       location.reload();

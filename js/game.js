@@ -75,7 +75,9 @@ class Game {
       this.isGameOver = true;
       this.endGame();
     } else {
-      this.animateId = requestAnimationFrame(() => this.gameLoop());
+      setTimeout(() => {
+        this.animateId = requestAnimationFrame(() => this.gameLoop());
+      }, 1000 / 90 /* FPS number*/);
     }
   }
 
