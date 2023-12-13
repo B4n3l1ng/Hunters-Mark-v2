@@ -144,3 +144,8 @@ input[type="text"] {
 :-moz-placeholder {
   text-align: center;
 }
+
+#volumeControlGame {
+  margin-top: 20px;
+  width: 900px;
+}

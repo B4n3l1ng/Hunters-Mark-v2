@@ -4,12 +4,14 @@ window.addEventListener("load", () => {
   const muteBtn = document.querySelector("#muteBtn");
   const muteText = document.querySelector(".muteText");
   const volumeSlide = document.querySelector("#volumeControl");
+  const volumeSlideGameScreen = document.getElementById("volumeControlGame");
   let isMuted = false;
   let game;
   let shootOnce = false;
 
   function startGame() {
     let volume = volumeSlide.value / 100;
+    volumeSlideGameScreen.value = volumeSlide.value;
     game = new Game(isMuted, volume);
     game.start();
     document.addEventListener("keydown", (event) => {
@@ -74,5 +76,8 @@ window.addEventListener("load", () => {
     } else if (!isMuted) {
       muteText.innerText = "on";
     }
+  });
+  volumeSlideGameScreen.addEventListener("change", (event) => {
+    game.handleVolumeChange(parseInt(event.target.value) / 100);
   });
 });

@@ -11,11 +11,8 @@ class Game {
     this.gameScreen.style.border = "5px solid black";
     this.gameScreen.style.display = "none";
     this.name = document.getElementById("nameInput").value;
-    console.log(this.name);
     this.highScores = JSON.parse(localStorage.getItem("highScores"));
-    console.log(this.highScores);
     this.isMuted = isMuted;
-    console.log("isMuted in class", isMuted);
     this.height = 800;
     this.width = 900;
     this.gameSpeed = 3;
@@ -52,6 +49,8 @@ class Game {
     this.gameFailMusic.volume = volume;
     this.successMusic = new Audio("./assets/audio/Game Over Screen.mp3");
     this.successMusic.volume = volume;
+
+    this.volumeSlider = document.getElementById("volumeControlGame");
   }
 
   start() {
@@ -165,7 +164,7 @@ class Game {
 
   artyRun() {
     let artyHowl = new Audio("./assets/audio/howl.wav");
-    artyHowl.volume = 0.3;
+    artyHowl.volume = this.volume;
     if (!this.isMuted) {
       artyHowl.play();
     }
@@ -184,9 +183,11 @@ class Game {
       scoreList.appendChild(li);
     });
     scoreList.classList.add("list");
+    this.volumeSlider.style.display = "none";
+
+    this.stats.style.display = "none";
+    this.gameScreen.style.display = "none";
     if (this.score >= 20) {
-      this.stats.style.display = "none";
-      this.gameScreen.style.display = "none";
       this.endScreenWin.style.display = "block";
       document.getElementById("scoreWon").innerText = this.score;
       document.getElementById("highScores").appendChild(scoreList);
@@ -195,8 +196,6 @@ class Game {
         this.successMusic.play();
       }
     } else {
-      this.stats.style.display = "none";
-      this.gameScreen.style.display = "none";
       this.endScreenLose.style.display = "block";
       document.getElementById("highScores").appendChild(scoreList);
       this.endScreenLose.appendChild(scoreList);
@@ -221,5 +220,13 @@ class Game {
       const newScore = [{ name: this.name, score: this.score }];
       localStorage.setItem("highScores", JSON.stringify(newScore));
     }
+  }
+
+  handleVolumeChange(newVolume) {
+    this.volume = newVolume;
+    this.backgroundMusic.volume = newVolume;
+    this.successMusic.volume = newVolume;
+    this.gameFailMusic.volume = newVolume;
+    this.dyingSound.volume = newVolume;
   }
 }
