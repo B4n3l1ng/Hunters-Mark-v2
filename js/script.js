@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
   const muteText = document.querySelector(".muteText");
   const volumeSlide = document.querySelector("#volumeControl");
   const volumeSlideGameScreen = document.getElementById("volumeControlGame");
+  const nameForm = document.getElementById("nameForm");
   let isMuted = false;
   let game;
   let shootOnce = false;
@@ -61,9 +62,9 @@ window.addEventListener("load", () => {
     });
   }
 
-  startButton.addEventListener("click", () => {
+  /* startButton.addEventListener("click", () => {
     startGame();
-  });
+  }); */
   restartButtons.forEach((button) => {
     button.addEventListener("click", () => {
       location.reload();
@@ -79,5 +80,9 @@ window.addEventListener("load", () => {
   });
   volumeSlideGameScreen.addEventListener("change", (event) => {
     game.handleVolumeChange(parseInt(event.target.value) / 100);
+  });
+  nameForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    startGame();
   });
 });

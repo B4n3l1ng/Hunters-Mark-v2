@@ -50,7 +50,7 @@ class Game {
     this.successMusic = new Audio("./assets/audio/Game Over Screen.mp3");
     this.successMusic.volume = volume;
 
-    this.volumeSlider = document.getElementById("volumeControlGame");
+    this.volumeSlider = document.getElementById("volumeControlGameLabel");
   }
 
   start() {
@@ -59,6 +59,7 @@ class Game {
     this.startScreen.style.display = "none";
     this.stats.style.display = "flex";
     this.gameScreen.style.display = "block";
+    this.volumeSlider.style.display = "block";
     if (!this.isMuted) {
       this.backgroundMusic.play();
     }

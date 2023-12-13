@@ -32,10 +32,16 @@
         </div>
       </div>
       <div id="buttons">
-        <label>
-          <input type="text" placeholder="Type your name here" id="nameInput"
-        /></label>
-        <button id="startBtn">Start Game!</button>
+        <form id="nameForm">
+          <label>
+            <input
+              type="text"
+              placeholder="Type your name here"
+              id="nameInput"
+              required /></label
+          ><button type="submit" id="startBtn">Start Game!</button>
+        </form>
+
         <div class="instructionsDiv">
           <button>Instructions</button>
           <div class="instructions box">
@@ -64,7 +70,7 @@
         <p>Lives: <span id="lives">3</span></p>
       </div>
       <div id="game-screen"></div>
-      <label
+      <label id="volumeControlGameLabel"
         >Volume level:
         <input type="range" id="volumeControlGame" min="1" max="100" value="50"
       /></label>
